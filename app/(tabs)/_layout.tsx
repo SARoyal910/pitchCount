@@ -1,19 +1,17 @@
-import { Tabs, useRouter, useSegments } from "expo-router";
-import { useEffect } from "react";
-import { ActivityIndicator, Image, StyleSheet, View } from "react-native";
+import { Tabs, useRouter } from "expo-router";
+import { ActivityIndicator, Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useSession } from "@/lib/session";
 
 export default function TabsLayout() {
-  const { user, loading, guest } = useSession();
+  const { user, loading, guest, signOutUser, setGuest } = useSession();
   const router = useRouter();
-  const segments = useSegments();
 
-  useEffect(() => {
-    if (!loading && !user && !guest && segments[0] === "(tabs)") {
-      router.replace("/");
-    }
-  }, [guest, loading, router, segments, user]);
+  const handleSignOut = async () => {
+    setGuest(false);
+    router.replace("/index");
+    await signOutUser();
+  };
 
   if (loading) {
     return (
@@ -28,7 +26,18 @@ export default function TabsLayout() {
   }
 
   return (
-    <Tabs screenOptions={{ headerTitleAlign: "center", sceneStyle: { backgroundColor: "transparent" } }}>
+    <Tabs
+      screenOptions={{
+        headerTitleAlign: "center",
+        sceneStyle: { backgroundColor: "transparent" },
+        headerRight: () =>
+          user || guest ? (
+            <Pressable onPress={handleSignOut} style={styles.headerButton}>
+              <Text style={styles.headerButtonText}>{user ? "Sign Out" : "Exit"}</Text>
+            </Pressable>
+          ) : null,
+      }}
+    >
       <Tabs.Screen
         name="dashboard"
         options={{
@@ -74,4 +83,13 @@ export default function TabsLayout() {
 
 const styles = StyleSheet.create({
   loader: { flex: 1, alignItems: "center", justifyContent: "center" },
+  headerButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "rgba(15, 23, 42, 0.2)",
+    marginRight: 12,
+  },
+  headerButtonText: { fontSize: 12, fontWeight: "700", color: "#0f172a" },
 });

@@ -9,15 +9,13 @@ export default function DashboardScreen() {
   const { signOutUser, user, guest, setGuest } = useSession();
 
   const handleSignOut = async () => {
-    if (user) {
-      await signOutUser();
-    }
     setGuest(false);
-    router.replace("/");
+    router.replace("/index");
+    await signOutUser();
   };
 
   const handleBackHome = () => {
-    router.replace("/");
+    router.replace("/index");
   };
 
   return (

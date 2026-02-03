@@ -35,7 +35,11 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       user,
       loading,
       signOutUser: async () => {
-        await signOut(auth);
+        try {
+          await signOut(auth);
+        } catch (err) {
+          console.warn("Sign out failed", err);
+        }
       },
       guest,
       setGuest,

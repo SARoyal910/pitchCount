@@ -1,11 +1,10 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { getAuth, initializeAuth } from "firebase/auth";
+import { getAuth, getReactNativePersistence, initializeAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getReactNativePersistence } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDQFxeJT4MB6fruEj8tHzUPdjrAG5pj1IE",
+  apiKey: "AIzaSyDQFxeJT4MB6fruEj8tHzUPdjrAG5pjI1E",
   authDomain: "pitchcount-c3801.firebaseapp.com",
   projectId: "pitchcount-c3801",
   storageBucket: "pitchcount-c3801.firebasestorage.app",

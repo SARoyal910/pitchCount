@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isValidProfile() {
+      return request.resource.data.keys().hasOnly(['teamName'])
+        && request.resource.data.teamName is string
+        && request.resource.data.teamName.size() <= 40;
+    }
+
+    function isValidPlayer() {
+      return request.resource.data.keys().hasOnly(['name', 'number'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 1
+        && request.resource.data.name.size() <= 40
+        && (!('number' in request.resource.data) ||
+            (request.resource.data.number is string && request.resource.data.number.size() <= 4));
+    }
+
+    function isValidGame() {
+      return request.resource.data.keys().hasOnly(['opponent', 'date', 'location'])
+        && request.resource.data.opponent is string
+        && request.resource.data.opponent.size() >= 1
+        && request.resource.data.opponent.size() <= 40
+        && request.resource.data.date is string
+        && request.resource.data.date.matches('^\\d{4}-\\d{2}-\\d{2}$')
+        && (!('location' in request.resource.data) ||
+            (request.resource.data.location is string && request.resource.data.location.size() <= 60));
+    }
+
+    function isValidCounter() {
+      return request.resource.data.keys().hasOnly(['balls', 'strikes', 'outs', 'walks', 'pitches'])
+        && request.resource.data.balls is int
+        && request.resource.data.balls >= 0
+        && request.resource.data.balls <= 3
+        && request.resource.data.strikes is int
+        && request.resource.data.strikes >= 0
+        && request.resource.data.strikes <= 2
+        && request.resource.data.outs is int
+        && request.resource.data.outs >= 0
+        && request.resource.data.walks is int
+        && request.resource.data.walks >= 0
+        && request.resource.data.pitches is int
+        && request.resource.data.pitches >= 0;
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid) && isValidProfile();
+      allow delete: if isOwner(uid);
+
+      match /players/{playerId} {
+        allow read, write: if isOwner(uid) && isValidPlayer();
+      }
+
+      match /schedule/{gameId} {
+        allow read, write: if isOwner(uid) && isValidGame();
+      }
+
+      match /games/current {
+        allow read, write: if isOwner(uid) && isValidCounter();
+      }
+    }
+  }
+}

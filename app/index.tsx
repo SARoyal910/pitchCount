@@ -68,7 +68,14 @@ export default function HomeScreen() {
       setGuest(false);
       router.replace("/(tabs)/dashboard");
     } catch (err) {
-      setError(getAuthErrorMessage(err));
+      if (err && typeof err === "object" && "code" in err) {
+        const code = String((err as { code: string }).code);
+        setError(`${getAuthErrorMessage(err)} (${code})`);
+      } else if (err instanceof Error && err.message) {
+        setError(`Authentication failed: ${err.message}`);
+      } else {
+        setError(getAuthErrorMessage(err));
+      }
     } finally {
       setBusy(false);
     }
