@@ -1,17 +1,17 @@
+import Constants from "expo-constants";
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAuth, getReactNativePersistence, initializeAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDQFxeJT4MB6fruEj8tHzUPdjrAG5pjI1E",
-  authDomain: "pitchcount-c3801.firebaseapp.com",
-  projectId: "pitchcount-c3801",
-  storageBucket: "pitchcount-c3801.firebasestorage.app",
-  messagingSenderId: "451939474230",
-  appId: "1:451939474230:web:ad42f2db5e1a155cf97197",
-  measurementId: "G-EF7ZYJD6FZ",
-};
+const extra = Constants.expoConfig?.extra ?? Constants.manifest?.extra ?? {};
+const firebaseConfig = extra.firebase ?? {};
+
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId || !firebaseConfig.appId) {
+  throw new Error(
+    "Missing Firebase config. Check app.config.js and your .env values."
+  );
+}
 
 // Prevent re-init during Fast Refresh
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
