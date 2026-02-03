@@ -3,15 +3,16 @@ import { getAuth, initializeAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getReactNativePersistence } from "firebase/auth";
+import Constants from "expo-constants";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDQFxeJT4MB6fruEj8tHzUPdjrAG5pj1IE",
-  authDomain: "pitchcount-c3801.firebaseapp.com",
-  projectId: "pitchcount-c3801",
-  storageBucket: "pitchcount-c3801.firebasestorage.app",
-  messagingSenderId: "451939474230",
-  appId: "1:451939474230:web:ad42f2db5e1a155cf97197",
-  measurementId: "G-EF7ZYJD6FZ",
+  apiKey: Constants.expoConfig?.extra?.firebaseApiKey,
+  authDomain: Constants.expoConfig?.extra?.firebaseAuthDomain,
+  projectId: Constants.expoConfig?.extra?.firebaseProjectId,
+  storageBucket: Constants.expoConfig?.extra?.firebaseStorageBucket,
+  messagingSenderId: Constants.expoConfig?.extra?.firebaseMessagingSenderId,
+  appId: Constants.expoConfig?.extra?.firebaseAppId,
+  measurementId: Constants.expoConfig?.extra?.firebaseMeasurementId,
 };
 
 // Prevent re-init during Fast Refresh
