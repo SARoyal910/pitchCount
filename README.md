@@ -1,50 +1,127 @@
-# Welcome to your Expo app 👋
+# pitchCount
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native mobile application built with Expo for tracking baseball pitch counts during games.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Real-time pitch count tracking
+- User authentication with Firebase
+- Live game tracking
+- Statistics and dashboard views
+- Cross-platform support (iOS, Android, Web)
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+- **Framework**: [Expo](https://expo.dev) ~54.0
+- **Language**: TypeScript
+- **UI**: React Native with custom theming
+- **Navigation**: Expo Router (file-based routing)
+- **Backend**: Firebase (Authentication & Firestore)
+- **State Management**: React Context API
 
-   ```bash
-   npx expo start
-   ```
+## Prerequisites
 
-In the output, you'll find options to open the app in a
+- Node.js (v16 or higher)
+- npm or yarn
+- Expo Go app (for mobile testing)
+- Firebase account with a project set up
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Getting Started
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Install Dependencies
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Configure Firebase
 
-## Learn more
+1. Copy the example environment file:
+```bash
+cp .env.example .env
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+2. Add your Firebase credentials to the `.env` file:
+```env
+EXPO_PUBLIC_FIREBASE_API_KEY=your_api_key_here
+EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
+EXPO_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
+EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+EXPO_PUBLIC_FIREBASE_APP_ID=your_app_id
+EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+You can find these values in your [Firebase Console](https://console.firebase.google.com/) under Project Settings.
 
-## Join the community
+### 3. Start the Development Server
 
-Join our community of developers creating universal apps.
+```bash
+npm start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This will start the Expo development server. You can then:
+
+- Press `i` to open in iOS Simulator
+- Press `a` to open in Android Emulator
+- Press `w` to open in Web Browser
+- Scan the QR code with Expo Go app on your mobile device
+
+## Project Structure
+
+```
+pitchCount/
+├── app/                    # App screens (file-based routing)
+│   ├── (tabs)/            # Tab navigation screens
+│   │   ├── index.tsx      # Home screen
+│   │   ├── dashboard.tsx  # Dashboard
+│   │   ├── stats.tsx      # Statistics
+│   │   └── live.tsx       # Live tracking
+│   ├── _layout.tsx        # Root layout
+│   └── modal.tsx          # Modal screens
+├── components/            # Reusable UI components
+├── constants/             # App constants and theme
+├── hooks/                 # Custom React hooks
+├── lib/                   # Firebase and session management
+├── styles/                # Global styles and theming
+└── assets/                # Images, fonts, and other assets
+```
+
+## Available Scripts
+
+- `npm start` - Start the Expo development server
+- `npm run android` - Start on Android
+- `npm run ios` - Start on iOS
+- `npm run web` - Start on Web
+- `npm run lint` - Run ESLint
+- `npm run reset-project` - Reset to a blank project
+
+## Development
+
+This project uses:
+
+- **TypeScript** with strict mode enabled
+- **ESLint** with Expo's recommended configuration
+- **File-based routing** via Expo Router
+- **Themed components** for consistent styling across light/dark modes
+
+## Learn More
+
+To learn more about the technologies used in this project:
+
+- [Expo documentation](https://docs.expo.dev/)
+- [React Native documentation](https://reactnative.dev/)
+- [Firebase documentation](https://firebase.google.com/docs)
+- [Expo Router documentation](https://docs.expo.dev/router/introduction/)
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For questions or issues, please [open an issue](https://github.com/joepangallo/pitchCount/issues) on GitHub.

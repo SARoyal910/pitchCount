@@ -31,8 +31,8 @@ yarn-error.*
 *.pem
 
 # local env files
-.env*.local
 .env
+.env*.local
 .env.*
 !.env.example
 
@@ -44,3 +44,13 @@ app-example
 # generated native folders
 /ios
 /android
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
