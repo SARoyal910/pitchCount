@@ -696,7 +696,7 @@ export default function HomeScreen() {
                       <Text style={styles.endGameCancelText}>Cancel</Text>
                     </Pressable>
                     <Pressable style={styles.endGameSave} onPress={handleEndPractice}>
-                      <Text style={styles.endGameSaveText}>Save Session</Text>
+                      <Text style={styles.endGameSaveText}>Thanks for trying</Text>
                     </Pressable>
                   </View>
                 </View>
