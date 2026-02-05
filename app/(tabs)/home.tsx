@@ -13,7 +13,7 @@ export default function HomeScreen() {
         <View style={styles.heroCard}>
           <Text style={styles.title}>PitchCount</Text>
           <Text style={styles.sub}>
-            {guest ? "Quick practice mode is active." : "Earn it in practice. Win it in games."}
+            {guest ? "Earn it in practice. Win it in games." : "Earn it in practice. Win it in games."}
           </Text>
 
           <View style={styles.actionRow}>
