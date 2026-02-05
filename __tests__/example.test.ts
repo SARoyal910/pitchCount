@@ -29,3 +29,11 @@ describe('Basic Math Operations', () => {
     expect(colors).toHaveLength(3);
   });
 });
+
+describe('Simple Rendering', () => {
+  it('should render a basic element', () => {
+    const element = { type: 'View', props: { children: 'Hello' } };
+    expect(element.type).toBe('View');
+    expect(element.props.children).toBe('Hello');
+  });
+});

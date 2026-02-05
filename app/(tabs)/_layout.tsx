@@ -6,11 +6,13 @@ import { useSession } from "@/lib/session";
 export default function TabsLayout() {
   const { user, loading, guest, signOutUser, setGuest } = useSession();
   const router = useRouter();
+  const isGuestOnly = !user && guest;
+  const hiddenTabOptions = isGuestOnly ? { tabBarButton: () => null } : {};
 
   const handleSignOut = async () => {
     setGuest(false);
-    router.replace("/index");
     await signOutUser();
+    router.replace("/");
   };
 
   if (loading) {
@@ -30,6 +32,7 @@ export default function TabsLayout() {
       screenOptions={{
         headerTitleAlign: "center",
         sceneStyle: { backgroundColor: "transparent" },
+        tabBarStyle: isGuestOnly ? { display: "none" } : undefined,
         headerRight: () =>
           user || guest ? (
             <Pressable onPress={handleSignOut} style={styles.headerButton}>
@@ -39,12 +42,12 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="dashboard"
+        name="home"
         options={{
-          title: "Dashboard",
+          title: "Home",
           tabBarIcon: ({ focused }) => (
             <Image
-              source={require("../../assets/icons/dashboard.png")}
+              source={require("../../assets/icons/AdobeStock_227314847.jpeg")}
               style={{ width: 24, height: 24, opacity: focused ? 1 : 0.5 }}
             />
           ),
@@ -71,10 +74,25 @@ export default function TabsLayout() {
           title: "Stats",
           tabBarIcon: ({ focused }) => (
             <Image
-              source={require("../../assets/icons/stats.png")}
+              source={require("../../assets/icons/ChatGPT Image Feb 5, 2026, 03_02_05 AM.png")}
               style={{ width: 24, height: 24, opacity: focused ? 1 : 0.5 }}
             />
           ),
+          ...hiddenTabOptions,
+        }}
+      />
+
+      <Tabs.Screen
+        name="coaches"
+        options={{
+          title: "Coaches",
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={require("../../assets/icons/AdobeStock_468903121.jpeg")}
+              style={{ width: 24, height: 24, opacity: focused ? 1 : 0.5 }}
+            />
+          ),
+          ...hiddenTabOptions,
         }}
       />
     </Tabs>

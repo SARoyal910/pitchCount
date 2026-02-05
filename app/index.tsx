@@ -66,7 +66,7 @@ export default function HomeScreen() {
         await signInWithEmailAndPassword(auth, trimmedEmail, pw);
       }
       setGuest(false);
-      router.replace("/(tabs)/dashboard");
+      router.replace("/(tabs)/home");
     } catch (err) {
       if (err && typeof err === "object" && "code" in err) {
         const code = String((err as { code: string }).code);
@@ -85,7 +85,7 @@ export default function HomeScreen() {
     setError("");
     await signOutUser();
     setGuest(true);
-    router.replace("/(tabs)/live");
+    router.replace("/(tabs)/home");
   };
 
   return (

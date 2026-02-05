@@ -78,7 +78,7 @@ pitchCount/
 │   │   ├── stats.tsx      # Statistics
 │   │   └── live.tsx       # Live tracking
 │   ├── _layout.tsx        # Root layout
-│   └── modal.tsx          # Modal screens
+│   └── model.tsx          # Model screens
 ├── components/            # Reusable UI components
 ├── constants/             # App constants and theme
 ├── hooks/                 # Custom React hooks
